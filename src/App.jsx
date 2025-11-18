@@ -1,7 +1,15 @@
+import Header from "./layout/header"
+import { Outlet } from "react-router-dom"
+
 function App() {
 
   return (
-    <h1>test watch</h1>
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </>
   )
 }
 
