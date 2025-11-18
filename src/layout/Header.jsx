@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <header>
-      <h1>Welcome to the Header</h1>
+      <h1>My E-commerce Site</h1>
     </header>
   );
 }
