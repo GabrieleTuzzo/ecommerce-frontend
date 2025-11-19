@@ -21,7 +21,7 @@ export default function Card({ ...product }) {
             )}
           </h2>
           <p>{product.descrizione}</p>
-          <div className="card-actions justify-end items-end">
+          <div className="card-actions justify-end items-center">
             <span className="font-bold text-2xl">{product.prezzo}€</span>
             <button className="btn btn-primary" onClick={handleAddItem}>
               Add to Cart
