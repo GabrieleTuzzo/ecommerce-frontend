@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <section>
       <div className="container mx-auto mt-4 px-4">
-        <h1 className="text-3xl font-bold mb-5">Out Products</h1>
+        <h1 className="text-3xl font-bold mb-5">Our Products</h1>
         {productsArray.products.length === 0 ? (
           <p>Loading products...</p>
         ) : (

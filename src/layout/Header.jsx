@@ -1,6 +1,17 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../store/cartSlice";
 
 export default function Header() {
+  const cartItemCount = useSelector((state) => state.cart.items.length);
+  const cartTotal = useSelector((state) => state.cart.total);
+  const dispatch = useDispatch();
+
+  const handleEmptyCart = () => {
+    dispatch(clearCart());
+  };
+
   return (
     <header className="navbar glass fixed top-0 z-10 px-4">
       <div className="flex-1">
@@ -27,7 +38,9 @@ export default function Header() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />{" "}
               </svg>
-              <span className="badge badge-sm indicator-item">1</span>
+              <span className="badge badge-sm indicator-item">
+                {cartItemCount}
+              </span>
             </div>
           </div>
           <div
@@ -35,10 +48,16 @@ export default function Header() {
             className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
           >
             <div className="card-body">
-              <span className="text-lg font-bold">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="text-lg font-bold">{cartItemCount} Items</span>
+              <span className="text-info">Subtotal: {cartTotal}€</span>
               <div className="card-actions">
                 <button className="btn btn-primary btn-block">View cart</button>
+                <button
+                  className="btn btn-secondary btn-block"
+                  onClick={handleEmptyCart}
+                >
+                  Empty cart
+                </button>
               </div>
             </div>
           </div>

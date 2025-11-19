@@ -1,4 +1,12 @@
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/cartSlice";
+
 export default function Card({ ...product }) {
+  const dispatch = useDispatch();
+  const handleAddItem = () => {
+    dispatch(addItem(product));
+  };
+
   return (
     <div className="card">
       <div className="card bg-base-100 shadow-sm rounded-lg hover:shadow-lg transition-shadow duration-300 hover:cursor-pointer">
@@ -15,7 +23,9 @@ export default function Card({ ...product }) {
           <p>{product.descrizione}</p>
           <div className="card-actions justify-end items-end">
             <span className="font-bold text-2xl">{product.prezzo}€</span>
-            <button className="btn btn-primary">Add to Cart</button>
+            <button className="btn btn-primary" onClick={handleAddItem}>
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
