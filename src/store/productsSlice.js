@@ -10,6 +10,6 @@ const productsSlice = createSlice({
     },
 });
 
-export const { productsActions } = productsSlice.actions;
+export const { setProducts } = productsSlice.actions;
 
 export default productsSlice;
