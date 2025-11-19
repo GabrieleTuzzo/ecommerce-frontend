@@ -10,7 +10,6 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export default function Home() {
   const dispatch = useDispatch();
   const productsArray = useSelector((state) => state.products);
-  console.log("Products from Redux store:", productsArray);
 
   useEffect(() => {
     axios
@@ -21,7 +20,7 @@ export default function Home() {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [dispatch]);
+  }, []);
 
   return (
     <section>
