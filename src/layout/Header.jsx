@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="navbar bg-base-100 shadow-sm">
+    <header className="navbar bg-base-100 shadow-md">
       <div className="flex-1">
         <Link to={"/"} className="btn btn-ghost text-xl">
           E-Commerce
