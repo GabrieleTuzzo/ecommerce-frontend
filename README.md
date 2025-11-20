@@ -3,4 +3,12 @@
 A mockup ecommerce web-app
 
 **Styling:** DaisyUI, TailwindCSS
-**tech used:** React, Vite, Redux, React-Router-Dom
+
+**Tech used:** React, Vite, Redux, React-Router-Dom
+
+## To do
+
+- [ ] Implement Loader
+- [ ] Implement Cart Page
+- [ ] Streamline Cart Item Object
+- [ ] Fix product Fetch (Only fetch from HomePage)
