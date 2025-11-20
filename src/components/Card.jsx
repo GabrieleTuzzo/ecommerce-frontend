@@ -11,18 +11,18 @@ export default function Card({ ...product }) {
     <div className="card">
       <div className="card bg-base-100 shadow-sm rounded-lg hover:shadow-lg transition-shadow duration-300 hover:cursor-pointer">
         <figure>
-          <img src={product.image} alt={product.nome} />
+          <img src={product.image_url} alt={product.name} />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
-            {product.nome}
-            {product.in_evidenza && (
+            {product.name}
+            {product.featured && (
               <span className="badge badge-secondary">New!</span>
             )}
           </h2>
-          <p>{product.descrizione}</p>
+          <p>{product.description}</p>
           <div className="card-actions justify-end items-center">
-            <span className="font-bold text-2xl">{product.prezzo}€</span>
+            <span className="font-bold text-2xl">{product.price}€</span>
             <button className="btn btn-primary" onClick={handleAddItem}>
               Add to Cart
             </button>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../store/productsSlice";
+import { setError } from "../store/errorHandlerSlice";
 // Components import
 import Card from "../components/Card.jsx";
 
@@ -13,19 +14,27 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}/prodotti`)
+      .get(`${BACKEND_URL}/products`)
       .then((response) => {
         dispatch(setProducts(response.data));
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
+        dispatch(
+          setError({
+            name: error.name,
+            status: error.status,
+            code: error.code,
+            message: error.message,
+          })
+        );
       });
   }, []);
 
   return (
     <section>
       <h1 className="text-3xl font-bold mb-5">Our Products</h1>
-      {productsArray.products.length === 0 ? (
+      {productsArray.products === null ? (
         <p>Loading products...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
