@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productsSlice from "./productsSlice.js";
-import cartSlice from "./cartSlice.js";
-import errorHandlerSlice from "./errorHandlerSlice.js";
+import productsReducer from "./productsSlice.js";
+import cartReducer from "./cartSlice.js";
+import errorHandlerReducer from "./errorHandlerSlice.js";
+import loaderReducer from "./loaderSlice.js";
 
 const store = configureStore({
   reducer: {
     // Add your reducers here
-    products: productsSlice.reducer,
-    cart: cartSlice.reducer,
-    errorHandler: errorHandlerSlice.reducer,
+    products: productsReducer,
+    cart: cartReducer,
+    errorHandler: errorHandlerReducer,
+    loader: loaderReducer,
   },
 });
 
