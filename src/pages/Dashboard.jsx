@@ -1,7 +1,14 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchProducts } from "../store/productsSlice";
 
 export default function Dashboard() {
   const productsArray = useSelector((state) => state.products.productsArray);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
 
   if (!productsArray || productsArray.length === 0) {
     return <p>No products available</p>;
