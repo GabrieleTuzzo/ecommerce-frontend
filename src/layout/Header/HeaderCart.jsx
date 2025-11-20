@@ -38,12 +38,12 @@ export default function HeaderCart() {
       </div>
       <div
         tabIndex={0}
-        className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
+        className="card dropdown-content bg-base-100 z-1 mt-3 min-w-max shadow"
       >
         <div className="card-body">
           <span className="text-lg font-bold">{cartItemCount} Items</span>
           <span className="text-info">Subtotal: {cartTotal.toFixed(2)}€</span>
-          <div className="card-actions">
+          <div className="card-actions flex-row align-center justify-between">
             <button className="btn btn-primary btn-block">View cart</button>
             <button
               className="btn btn-secondary btn-block"

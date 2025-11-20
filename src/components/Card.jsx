@@ -8,10 +8,14 @@ export default function Card({ ...product }) {
   };
 
   return (
-    <div className="card">
+    <div className="card xl:card-xl lg:card-lg md:card-md sm:card-sm bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300">
       <div className="card bg-base-100 shadow-sm rounded-lg hover:shadow-lg transition-shadow duration-300 hover:cursor-pointer">
-        <figure>
-          <img src={product.image_url} alt={product.name} />
+        <figure className="w-full">
+          <img
+            className="w-full h-48 object-cover"
+            src={product.image_url ?? "https://placehold.co/500x300"}
+            alt={product.name}
+          />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
