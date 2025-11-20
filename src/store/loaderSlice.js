@@ -8,8 +8,7 @@ const loaderSlice = createSlice({
   reducers: {
     showLoader: (state) => {
       state.isLoading = true;
-    }
-    ,
+    },
     hideLoader: (state) => {
       state.isLoading = false;
     },
