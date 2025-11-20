@@ -13,7 +13,8 @@ function App() {
     <>
       <Header />
       <main className="container bg-base-100 h-full mx-auto mt-20 px-4">
-        {isLoading ? <Loader /> : <Outlet />}
+        {isLoading && <Loader />}
+        <Outlet />
       </main>
       {isErrorVisible && <Error />}
     </>

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/cartSlice";
+import { Link } from "react-router-dom";
 
 export default function Card({ ...product }) {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ export default function Card({ ...product }) {
 
   return (
     <div className="card xl:card-xl lg:card-lg md:card-md sm:card-sm bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300">
-      <div className="card bg-base-100 shadow-sm rounded-lg hover:shadow-lg transition-shadow duration-300 hover:cursor-pointer">
+      <div className="card bg-base-100 shadow-sm rounded-lg hover:shadow-lg transition-shadow duration-300">
         <figure className="w-full">
           <img
             className="w-full h-48 object-cover"

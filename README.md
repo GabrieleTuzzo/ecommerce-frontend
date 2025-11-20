@@ -8,7 +8,7 @@ A mockup ecommerce web-app
 
 ## To do
 
-- [ ] Implement Loader
 - [ ] Implement Cart Page
 - [ ] Streamline Cart Item Object
-- [ ] Fix product Fetch (Only fetch from HomePage)
+- [x] Implement Loader
+- [x] Fix product Fetch (Only fetch from HomePage)
