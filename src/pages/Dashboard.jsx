@@ -10,8 +10,8 @@ export default function Dashboard() {
   const headers = Object.keys(productsArray[0]);
 
   return (
-    <div className="h-96 overflow-x-auto">
-      <table className="table table-pin-rows bg-base-200">
+    <div className="h-full overflow-x-auto w-full">
+      <table className="table table-zebra lg:table-md md:table-md sm:table-sm table-pin-rows">
         <thead>
           <tr>
             {headers.map((h) => (
