@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Card from "../components/Card.jsx";
 
 export default function Home() {
-  const productsArray = useSelector((state) => state.products.products);
+  const productsArray = useSelector((state) => state.products.productsArray);
 
   return (
     <section>
