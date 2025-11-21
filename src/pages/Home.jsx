@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "../store/productsSlice";
+import { fetchProducts } from "../store/products/productsActions.js";
 // Components import
 import Card from "../components/Card.jsx";
 

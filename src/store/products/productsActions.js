@@ -1,19 +1,9 @@
 import axios from "axios";
-import { createSlice } from "@reduxjs/toolkit";
-import { showLoader, hideLoader } from "./loaderSlice";
-import { setError } from "./errorHandlerSlice";
+import { showLoader, hideLoader } from "../loaderSlice";
+import { setError } from "../errorHandlerSlice";
+import { setProducts } from "./productsSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
-const productsSlice = createSlice({
-  name: "products",
-  initialState: { productsArray: null },
-  reducers: {
-    setProducts(state, action) {
-      state.productsArray = action.payload;
-    },
-  },
-});
 
 export const fetchProducts = () => async (dispatch) => {
   dispatch(showLoader());
@@ -36,6 +26,21 @@ export const fetchProducts = () => async (dispatch) => {
   }
 };
 
-export const { setProducts } = productsSlice.actions;
-
-export default productsSlice.reducer;
+export const fetchProductById = (id) => async (dispatch) => {
+  dispatch(showLoader());
+  try {
+    const response = await axios.get(`${BACKEND_URL}/products/${id}`);
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  } finally {
+    dispatch(hideLoader());
+  }
+};

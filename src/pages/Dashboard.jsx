@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchProducts } from "../store/productsSlice";
+import { fetchProducts } from "../store/products/productsActions.js";
 
 export default function Dashboard() {
   const productsArray = useSelector((state) => state.products.productsArray);
