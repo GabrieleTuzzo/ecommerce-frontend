@@ -49,7 +49,7 @@ export const postProduct = (product) => async (dispatch) => {
   dispatch(showLoader());
   try {
     const response = await axios.post(`${BACKEND_URL}/products`, product);
-    dispatch(addProduct(product));
+    dispatch(addProduct(response.data));
     return response.data;
   } catch (error) {
     dispatch(

@@ -15,7 +15,7 @@ export default function Dashboard() {
     available_quantity: 0,
     image_url: null,
     sku: null,
-    active: false,
+    active: true,
     featured: false,
   };
 
