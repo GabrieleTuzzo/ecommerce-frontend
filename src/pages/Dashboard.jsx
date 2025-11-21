@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef, createRef } from "react";
-import { fetchProducts } from "../store/products/productsActions.js";
+import {
+  deleteProduct,
+  fetchProducts,
+} from "../store/products/productsActions.js";
 import { postProduct } from "../store/products/productsActions.js";
 
 export default function Dashboard() {
   const productsArray = useSelector((state) => state.products.productsArray);
   const dispatch = useDispatch();
-  const [isAddItemVisible, setIsAddItemVisible] = useState(false);
 
   const initialFields = {
     name: "name",
@@ -66,28 +68,16 @@ export default function Dashboard() {
     dispatch(postProduct(item));
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteProduct(id));
+  };
+
   if (!productsArray || productsArray.length === 0) {
     return <p>No products available</p>;
   }
 
   return (
     <>
-      <div className="flex gap-4">
-        <button
-          onClick={() => handleSendItem()}
-          className={`btn btn-primary btn-md ${
-            !isAddItemVisible ? `btn-disabled` : `btn-active`
-          }`}
-        >
-          Send Item
-        </button>
-        <button
-          onClick={() => setIsAddItemVisible((prev) => !prev)}
-          className="btn btn-secondary btn-md"
-        >
-          Add Item
-        </button>
-      </div>
       <div className="h-full overflow-x-auto w-full">
         <table className="table table-zebra lg:table-md md:table-md sm:table-sm table-pin-rows">
           <thead>
@@ -97,31 +87,46 @@ export default function Dashboard() {
                   {h}
                 </th>
               ))}
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {isAddItemVisible && (
-              <tr>
-                {Object.keys(initialFields).map((key) => (
-                  <td className="text-center" key={key}>
-                    {typeof initialFields[key] === "boolean" ? (
-                      <input
-                        ref={refs.current[key]}
-                        type="checkbox"
-                        className="checkbox"
-                      />
-                    ) : (
-                      <input
-                        ref={refs.current[key]}
-                        type="text"
-                        className="input input-sm w-fit-full"
-                        placeholder={`${initialFields[key]}`} // <-- default value
-                      />
-                    )}
-                  </td>
-                ))}
-              </tr>
-            )}
+            <tr>
+              {Object.keys(initialFields).map((key) => (
+                <td className="text-center" key={key}>
+                  {typeof initialFields[key] === "boolean" ? (
+                    <input
+                      ref={refs.current[key]}
+                      type="checkbox"
+                      className="checkbox"
+                    />
+                  ) : (
+                    <input
+                      ref={refs.current[key]}
+                      type="text"
+                      className="input input-sm w-fit-full"
+                      placeholder={`${initialFields[key]}`} // <-- default value
+                    />
+                  )}
+                </td>
+              ))}
+              <td
+                className="text-center"
+                colSpan={Math.max(
+                  0,
+                  headers.length - Object.keys(initialFields).length
+                )}
+              ></td>
+              <td>
+                <button
+                  onClick={() => handleSendItem()}
+                  className={"btn btn-primary btn-md w-full"}
+                >
+                  Send Item
+                </button>
+              </td>
+            </tr>
+
             {productsArray.map((product, i) => (
               <tr key={product.id ?? i}>
                 {headers.map((h, i) => (
@@ -131,6 +136,16 @@ export default function Dashboard() {
                       : ""}
                   </td>
                 ))}
+
+                <td className="gap-1 flex">
+                  <button className="btn btn-sm btn-primary">Edit</button>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

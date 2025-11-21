@@ -1,7 +1,7 @@
 import axios from "axios";
 import { showLoader, hideLoader } from "../loaderSlice";
 import { setError } from "../errorHandlerSlice";
-import { setProducts, addProduct } from "./productsSlice";
+import { setProducts, addProduct, removeProduct } from "./productsSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -50,6 +50,26 @@ export const postProduct = (product) => async (dispatch) => {
   try {
     const response = await axios.post(`${BACKEND_URL}/products`, product);
     dispatch(addProduct(response.data));
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  } finally {
+    dispatch(hideLoader());
+  }
+};
+
+export const deleteProduct = (id) => async (dispatch) => {
+  dispatch(showLoader());
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/products/${id}`);
+    dispatch(removeProduct(id));
     return response.data;
   } catch (error) {
     dispatch(
