@@ -44,3 +44,22 @@ export const fetchProductById = (id) => async (dispatch) => {
     dispatch(hideLoader());
   }
 };
+
+export const postProduct = (product) => async (dispatch) => {
+  dispatch(showLoader());
+  try {
+    const response = await axios.post(`${BACKEND_URL}/products`, product);
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  } finally {
+    dispatch(hideLoader());
+  }
+};
