@@ -1,7 +1,7 @@
 import axios from "axios";
 import { showLoader, hideLoader } from "../loaderSlice";
 import { setError } from "../errorHandlerSlice";
-import { setProducts } from "./productsSlice";
+import { setProducts, addProduct } from "./productsSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -49,6 +49,7 @@ export const postProduct = (product) => async (dispatch) => {
   dispatch(showLoader());
   try {
     const response = await axios.post(`${BACKEND_URL}/products`, product);
+    dispatch(addProduct(product));
     return response.data;
   } catch (error) {
     dispatch(

@@ -46,12 +46,20 @@ export default function Dashboard() {
 
   const handleSendItem = () => {
     const item = Object.keys(initialFields).reduce((acc, key) => {
-      if (refs.current[key].current.value === "") {
-        acc[key] = initialFields[key];
-      } else {
-        acc[key] = refs.current[key]?.current?.value ?? initialFields[key]; // fallback to default
+      // console.log(refs.current[key].current.type);
+
+      switch (refs.current[key].current.type) {
+        case "text":
+          if (refs.current[key].current.value === "") {
+            acc[key] = initialFields[key];
+          } else {
+            acc[key] = refs.current[key]?.current?.value ?? initialFields[key]; // fallback to default
+          }
+          return acc;
+        case "checkbox":
+          acc[key] = refs.current[key].current.checked ?? initialFields[key];
+          return acc;
       }
-      return acc;
     }, {});
 
     console.log(item);
@@ -96,12 +104,20 @@ export default function Dashboard() {
               <tr>
                 {Object.keys(initialFields).map((key) => (
                   <td className="text-center" key={key}>
-                    <input
-                      ref={refs.current[key]}
-                      type="text"
-                      className="input input-sm w-fit-full"
-                      placeholder={`${initialFields[key]}`} // <-- default value
-                    />
+                    {typeof initialFields[key] === "boolean" ? (
+                      <input
+                        ref={refs.current[key]}
+                        type="checkbox"
+                        className="checkbox"
+                      />
+                    ) : (
+                      <input
+                        ref={refs.current[key]}
+                        type="text"
+                        className="input input-sm w-fit-full"
+                        placeholder={`${initialFields[key]}`} // <-- default value
+                      />
+                    )}
                   </td>
                 ))}
               </tr>
