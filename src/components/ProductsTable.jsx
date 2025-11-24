@@ -76,7 +76,7 @@ export default function ProductsTable() {
   }
 
   return (
-    <table className="table table-zebra lg:table-md md:table-md sm:table-sm table-pin-rows">
+    <table className="table table-pin-rows table-zebra lg:table-md md:table-md sm:table-sm table-pin-rows">
       <thead>
         <tr>
           {headers.map((h, i) => (
