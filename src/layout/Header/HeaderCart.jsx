@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
 import CartCard from "../../components/CartCard";
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderCart() {
+  const navigate = useNavigate();
   const cartItemCount = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + (item.quantity ?? 1), 0)
   );
-
   const cartArray = useSelector((state) => state.cart.items);
   const cartTotal = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
@@ -53,7 +54,12 @@ export default function HeaderCart() {
           </div>
           <span className="text-info">Subtotal: {cartTotal.toFixed(2)}€</span>
           <div className="card-actions flex-row align-center justify-between">
-            <button className="btn btn-primary btn-block">View cart</button>
+            <button
+              onClick={() => navigate("cart")}
+              className="btn btn-primary btn-block"
+            >
+              View cart
+            </button>
             <button
               className="btn btn-secondary btn-block"
               onClick={handleEmptyCart}
