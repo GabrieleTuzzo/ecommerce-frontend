@@ -10,7 +10,7 @@ export default function useUsersView() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
-  const fetchUsers = async () => {
+  async function fetchUsers() {
     dispatch(showLoader());
     try {
       const response = await axios.get(`${BACKEND_URL}/users`);
@@ -29,7 +29,26 @@ export default function useUsersView() {
     } finally {
       dispatch(hideLoader());
     }
-  };
+  }
 
-  return { data, fetchUsers };
+  async function deleteUser(id) {
+    dispatch(showLoader());
+    try {
+      const response = await axios.delete(`${BACKEND_URL}/users/${id}`);
+      setData(data.filter((value) => value.id !== id));
+    } catch (error) {
+      dispatch(
+        setError({
+          name: error.name,
+          status: error.status,
+          code: error.code,
+          message: error.message,
+        })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+
+  return { data, fetchUsers, deleteUser };
 }
