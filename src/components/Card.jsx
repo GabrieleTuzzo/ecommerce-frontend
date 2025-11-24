@@ -7,7 +7,7 @@ export default function Card({ ...product }) {
   const dispatch = useDispatch();
   const handleAddItem = (e) => {
     e.stopPropagation();
-    dispatch(addItem(product));
+    dispatch(addItem(cleanItem(product)));
   };
 
   return (
@@ -41,3 +41,10 @@ export default function Card({ ...product }) {
     </div>
   );
 }
+
+const cleanItem = (item) => ({
+  id: item.id,
+  name: item.name,
+  price: item.price,
+  quantity: 1,
+});

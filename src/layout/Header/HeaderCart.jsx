@@ -1,8 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
+import CartCard from "../../components/CartCard";
 
 export default function HeaderCart() {
-  const cartItemCount = useSelector((state) => state.cart.items.length);
+  const cartItemCount = useSelector((state) =>
+    state.cart.items.reduce((sum, item) => sum + (item.quantity ?? 1), 0)
+  );
+
   const cartTotal = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
 
@@ -41,7 +45,7 @@ export default function HeaderCart() {
         className="card dropdown-content bg-base-100 z-1 mt-3 min-w-max shadow"
       >
         <div className="card-body">
-          <span className="text-lg font-bold">{cartItemCount} Items</span>
+          <CartCard />
           <span className="text-info">Subtotal: {cartTotal.toFixed(2)}€</span>
           <div className="card-actions flex-row align-center justify-between">
             <button className="btn btn-primary btn-block">View cart</button>
