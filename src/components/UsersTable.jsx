@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useUsersView from "../hooks/useUsersView";
+import Table from "./Table";
 export default function UsersTable() {
   const { data, fetchUsers } = useUsersView();
 
@@ -7,5 +8,5 @@ export default function UsersTable() {
     fetchUsers();
   }, []);
 
-  return <h1>Users Table</h1>;
+  return <Table itemsArray={data} />;
 }

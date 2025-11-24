@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="h-full overflow-x-auto w-full">
+      <div className="h-full w-full">
         <div className="flex gap-2">
           {tableView.states.map((state, i) => (
             <button
