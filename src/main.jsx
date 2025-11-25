@@ -16,20 +16,20 @@ import Detail from "./pages/Detail.jsx";
 import Cart from "./pages/Cart.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import { decodeToken } from "./util/decodeToken.js";
 
 async function authMiddleware({ context, next }) {
   const state = store.getState();
-  const isAuth = state.user.isAuthorized;
-  if (!isAuth) {
-    throw redirect("/auth/login");
-  }
+  const token = state.user.token;
+
+  if (!token) throw redirect("/");
   return next;
 }
 
 async function authAdminMiddleware({ context, next }) {
   const state = store.getState();
-  const isAdmin = state.user.user.role === "admin";
-  if (!isAdmin) {
+  const decoded = decodeToken(state.user.token);
+  if (decoded?.role !== "admin") {
     throw redirect("/");
   }
   return next;

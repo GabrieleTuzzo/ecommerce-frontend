@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../store/user/userSlice";
+import { decodeToken } from "../../util/decodeToken";
 
 export default function HeaderUser() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isAuthorized);
-  const role = useSelector((state) => state.user.user?.role);
+  const token = useSelector((state) => state.user.token);
+  const isLoggedIn = Boolean(token);
+  const decoded = token ? decodeToken(token) : null;
+  const role = decoded?.role;
   const handleLogOut = () => {
     dispatch(logout());
   };

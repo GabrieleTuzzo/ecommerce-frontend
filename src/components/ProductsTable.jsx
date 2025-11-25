@@ -5,6 +5,7 @@ import {
   fetchProducts,
   deleteProduct,
 } from "../store/products/productsActions";
+import { resetProducts } from "../store/products/productsSlice";
 import Table from "./Table";
 
 export default function ProductsTable() {
@@ -25,6 +26,8 @@ export default function ProductsTable() {
 
   useEffect(() => {
     dispatch(fetchProducts());
+
+    return () => dispatch(resetProducts());
   }, []);
 
   const handleSendItem = () => {

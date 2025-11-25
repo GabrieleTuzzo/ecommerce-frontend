@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { loginStorage } from "./store/user/userSlice.js";
 // Layout components
 import Loader from "./layout/Loader";
 import Header from "./layout/Header/Header";
@@ -8,6 +10,15 @@ import Error from "./layout/Error";
 function App() {
   const isErrorVisible = useSelector((state) => state.errorHandler.isVisible);
   const isLoading = useSelector((state) => state.loader.isLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Dispatch function that checks if token is still active
+      dispatch(loginStorage(token));
+    }
+  }, []);
 
   return (
     <>

@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { fetchProducts } from "../store/products/productsActions.js";
+import { resetProducts } from "../store/products/productsSlice.js";
 // Components import
 import Card from "../components/Card.jsx";
 
@@ -11,6 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchProducts());
+    return () => dispatch(resetProducts());
   }, []);
 
   return (
