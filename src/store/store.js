@@ -3,7 +3,7 @@ import productsReducer from "./products/productsSlice.js";
 import cartReducer from "./cartSlice.js";
 import errorHandlerReducer from "./errorHandlerSlice.js";
 import loaderReducer from "./loaderSlice.js";
-import userReducer from "./userSlice.js";
+import userReducer from "./user/userSlice.js";
 
 const store = configureStore({
   reducer: {

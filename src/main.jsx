@@ -4,12 +4,28 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import "./index.css";
 import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 // Pages import
 import Home from "./pages/Home.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Detail from "./pages/Detail.jsx";
 import Cart from "./pages/Cart.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+
+async function authMiddleware({ context, next }) {
+  const state = store.getState();
+  const isAuth = state.user.isAuthorized;
+  if (!isAuth) {
+    throw redirect("/auth/login");
+  }
+
+  return next;
+}
 
 const router = createBrowserRouter([
   {
@@ -22,6 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
+        middleware: [authMiddleware],
         element: <Dashboard />,
       },
       {
@@ -31,6 +48,19 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "auth",
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "register",
+            element: <Register />,
+          },
+        ],
       },
     ],
   },
