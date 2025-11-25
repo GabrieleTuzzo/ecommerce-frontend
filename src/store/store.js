@@ -3,6 +3,7 @@ import productsReducer from "./products/productsSlice.js";
 import cartReducer from "./cartSlice.js";
 import errorHandlerReducer from "./errorHandlerSlice.js";
 import loaderReducer from "./loaderSlice.js";
+import userReducer from "./userSlice.js";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     cart: cartReducer,
     errorHandler: errorHandlerReducer,
     loader: loaderReducer,
+    user: userReducer,
   },
 });
 
