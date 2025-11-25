@@ -23,7 +23,15 @@ async function authMiddleware({ context, next }) {
   if (!isAuth) {
     throw redirect("/auth/login");
   }
+  return next;
+}
 
+async function authAdminMiddleware({ context, next }) {
+  const state = store.getState();
+  const isAdmin = state.user.user.role === "admin";
+  if (!isAdmin) {
+    throw redirect("/");
+  }
   return next;
 }
 
@@ -37,9 +45,19 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "dashboard",
+        path: "user",
         middleware: [authMiddleware],
-        element: <Dashboard />,
+        children: [
+          {
+            path: "profile",
+            element: <h1>Profile</h1>,
+          },
+          {
+            path: "dashboard",
+            middleware: [authAdminMiddleware],
+            element: <Dashboard />,
+          },
+        ],
       },
       {
         path: "product/:id",

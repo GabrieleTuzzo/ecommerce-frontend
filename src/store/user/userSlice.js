@@ -11,11 +11,13 @@ const userSlice = createSlice({
     login: (state, action) => {
       state.isAuthorized = true;
       state.user = action.payload.user;
+      state.token = action.payload.access_token;
       localStorage.setItem("token", action.payload.access_token);
     },
     logout: (state, action) => {
       state.isAuthorized = false;
       state.user = null;
+      state.token = null;
       localStorage.removeItem("token");
     },
   },
