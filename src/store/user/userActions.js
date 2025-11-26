@@ -1,6 +1,5 @@
 import axios from "axios";
 import { setError } from "../errorHandlerSlice";
-import { decodeToken } from "../../util/decodeToken";
 import { login } from "./userSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;

@@ -2,18 +2,25 @@ import { showLoader, hideLoader } from "../store/loaderSlice";
 import { setError } from "../store/errorHandlerSlice";
 import { useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import store from "../store/store";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function useUsersView() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const state = store.getState();
 
   async function fetchUsers() {
     dispatch(showLoader());
     try {
-      const response = await axios.get(`${BACKEND_URL}/users`);
+      const token = state.user.token;
+      const response = await axios.get(`${BACKEND_URL}/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("Fetched users:", response.data);
       setData(response.data);
     } catch (error) {
