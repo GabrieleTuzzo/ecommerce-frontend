@@ -38,6 +38,7 @@ export default function HeaderUser() {
         <li>
           {role === "admin" && <Link to={"/user/dashboard"}>Dashboard</Link>}
         </li>
+        <li>{isLoggedIn && <Link to={"/user/profile"}>Profile</Link>}</li>
         <li>
           {isLoggedIn ? (
             <button onClick={handleLogOut}>Log out</button>
