@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../store/cartSlice";
 import CartCard from "../components/CartCard";
+import OrderForm from "../components/OrderForm";
 
 export default function Cart() {
   const cartArray = useSelector((state) => state.cart.items);
@@ -30,8 +31,7 @@ export default function Cart() {
         </div>
       </div>
       <div>
-        <h1 className="text-2xl font-bold mb-5">Order section</h1>
-        <button className="btn btn-primary">Order Now!</button>
+        <OrderForm />
       </div>
     </div>
   );

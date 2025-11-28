@@ -16,6 +16,7 @@ const userSlice = createSlice({
     },
     loginStorage: (state, action) => {
       state.token = action.payload;
+      console.log("Logged in from storage");
     },
   },
 });

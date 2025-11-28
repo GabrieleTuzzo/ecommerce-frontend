@@ -6,6 +6,7 @@ import { loginStorage } from "./store/user/userSlice.js";
 import Loader from "./layout/Loader";
 import Header from "./layout/Header/Header";
 import Error from "./layout/Error";
+import { checkToken } from "./store/user/userActions.js";
 
 function App() {
   const isErrorVisible = useSelector((state) => state.errorHandler.isVisible);
@@ -15,8 +16,13 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Dispatch function that checks if token is still active
-      dispatch(loginStorage(token));
+      (async () => {
+        await dispatch(
+          checkToken(token, () => {
+            dispatch(loginStorage(token));
+          })
+        );
+      })();
     }
   }, []);
 

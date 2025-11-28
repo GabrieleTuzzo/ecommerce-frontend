@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { postLogin } from "../store/user/userActions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -8,6 +9,8 @@ export default function Login() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [touched, setTouched] = useState({
     email: false,
@@ -36,7 +39,7 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    dispatch(postLogin(userData));
+    dispatch(postLogin(userData, navigate));
   };
 
   // Validation rules

@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../store/store";
+import { logout } from "../store/user/userSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -33,6 +34,7 @@ export default function useUsersView() {
           message: error.message,
         })
       );
+      if (error.code === 401) dispatch(logout());
     } finally {
       dispatch(hideLoader());
     }

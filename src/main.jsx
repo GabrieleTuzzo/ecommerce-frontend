@@ -19,16 +19,18 @@ import Register from "./pages/Register.jsx";
 import { decodeToken } from "./util/decodeToken.js";
 
 async function authMiddleware({ context, next }) {
-  const state = store.getState();
-  const token = state.user.token;
+  const token = localStorage.getItem("token");
 
-  if (!token) throw redirect("/");
+  if (!token) {
+    console.log("redirecting...");
+    throw redirect("/");
+  }
   return next;
 }
 
 async function authAdminMiddleware({ context, next }) {
-  const state = store.getState();
-  const decoded = decodeToken(state.user.token);
+  const token = localStorage.getItem("token");
+  const decoded = decodeToken(token);
   if (decoded?.role !== "admin") {
     throw redirect("/");
   }
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <h1>Profile</h1>,
+          },
+          {
+            path: "payment-success",
+            element: <h1>Payment-success</h1>,
+          },
+          {
+            path: "payment-cancel",
+            element: <h1>Payment-cancel</h1>,
           },
           {
             path: "dashboard",
