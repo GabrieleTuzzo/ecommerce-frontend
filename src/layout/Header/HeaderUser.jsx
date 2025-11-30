@@ -35,10 +35,17 @@ export default function HeaderUser() {
         tabIndex="-1"
         className="menu 2xl:menu-xl lg:menu-lg md:menu-md sm:menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
-        <li>
-          {role === "admin" && <Link to={"/user/dashboard"}>Dashboard</Link>}
-        </li>
-        <li>{isLoggedIn && <Link to={"/user/profile"}>Profile</Link>}</li>
+        {role === "admin" && (
+          <li>
+            <Link to={"/user/dashboard"}>Dashboard</Link>
+          </li>
+        )}
+
+        {isLoggedIn && (
+          <li>
+            <Link to={"/user/profile"}>Profile</Link>
+          </li>
+        )}
         <li>
           {isLoggedIn ? (
             <button onClick={handleLogOut}>Log out</button>

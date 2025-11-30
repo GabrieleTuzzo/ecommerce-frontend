@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setError } from "../errorHandlerSlice";
-import { login, loginStorage, logout } from "./userSlice";
+import { login, logout } from "./userSlice";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
