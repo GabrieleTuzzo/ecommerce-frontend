@@ -9,6 +9,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+import { decodeToken } from "./util/decodeToken.js";
 // Pages import
 import Home from "./pages/Home.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -16,9 +17,9 @@ import Detail from "./pages/Detail.jsx";
 import Cart from "./pages/Cart.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import { decodeToken } from "./util/decodeToken.js";
+import PaymentPage from "./pages/PaymentPage.jsx";
 
-async function authMiddleware({ context, next }) {
+async function authMiddleware({ next }) {
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -28,7 +29,7 @@ async function authMiddleware({ context, next }) {
   return next;
 }
 
-async function authAdminMiddleware({ context, next }) {
+async function authAdminMiddleware({ next }) {
   const token = localStorage.getItem("token");
   const decoded = decodeToken(token);
   if (decoded?.role !== "admin") {
@@ -56,11 +57,11 @@ const router = createBrowserRouter([
           },
           {
             path: "payment-success",
-            element: <h1>Payment-success</h1>,
+            element: <PaymentPage />,
           },
           {
             path: "payment-cancel",
-            element: <h1>Payment-cancel</h1>,
+            element: <PaymentPage />,
           },
           {
             path: "dashboard",

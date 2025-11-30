@@ -82,6 +82,35 @@ export const payOrder = (order_id) => async (dispatch, getState) => {
   }
 };
 
+export const confirmOrder =
+  (token, session_id, order_id) => async (dispatch, getState) => {
+    console.log("Confirming order...");
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/orders/${order_id}/confirm-payment`,
+        {
+          session_id: session_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      dispatch(
+        setError({
+          name: error.name,
+          status: error.status,
+          code: error.code,
+          message: error.message,
+        })
+      );
+    }
+  };
+
 export const checkToken = (token, callback) => async (dispatch) => {
   console.log("Checking token...");
   try {
