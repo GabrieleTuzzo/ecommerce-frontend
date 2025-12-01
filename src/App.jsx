@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="container bg-base-100 h-full mx-auto mt-20 px-4">
+      <main className="container bg-base-100 h-full mx-auto mt-20 mb-10 px-4">
         {isLoading && <Loader />}
         <Outlet />
       </main>
