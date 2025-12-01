@@ -13,6 +13,10 @@ export const postLogin = (userData, navigate) => async (dispatch) => {
     dispatch(login(response.data.access_token));
     navigate("/");
   } catch (error) {
+    if (error.status === 401) {
+      return "Wrong email or password!";
+    }
+
     dispatch(
       setError({
         name: error.name,
@@ -123,7 +127,7 @@ export const checkToken = (token, callback) => async (dispatch) => {
     if (response.data?.valid) {
       callback();
     } else {
-      return false;
+      dispatch(logout());
     }
   } catch (error) {
     if (error.code === 401) dispatch(logout());

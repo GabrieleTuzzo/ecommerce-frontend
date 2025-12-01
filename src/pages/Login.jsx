@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const [message, setMessage] = useState("");
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -38,8 +39,9 @@ export default function Login() {
     }));
   };
 
-  const handleLogin = () => {
-    dispatch(postLogin(userData, navigate));
+  const handleLogin = async () => {
+    const responseMessage = await dispatch(postLogin(userData, navigate));
+    setMessage(responseMessage);
   };
 
   // Validation rules
@@ -87,6 +89,7 @@ export default function Login() {
               onBlur={() => handleBlur("password")}
             />
             <p className="invisible">Must be at least 6 characters</p>
+            {message && <p className="text-error">{message}</p>}
           </div>
           <div className="card-actions justify-end">
             <button

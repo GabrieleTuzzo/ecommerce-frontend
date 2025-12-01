@@ -18,5 +18,5 @@ export default function Detail() {
     loadProduct();
   }, [productId]);
 
-  return <Card {...product} />;
+  return <Card detail={true} {...product} />;
 }
