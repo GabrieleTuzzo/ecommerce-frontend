@@ -39,6 +39,12 @@ export default function Login() {
     }));
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   const handleLogin = async () => {
     const responseMessage = await dispatch(postLogin(userData, navigate));
     setMessage(responseMessage);
@@ -54,52 +60,56 @@ export default function Login() {
       <div className="card card-border bg-base-100 w-100">
         <div className="card-body gap-5">
           <h2 className="card-title text-2xl">Log in</h2>
-          <input
-            className={`input ${
-              touched.email
-                ? isEmailValid
-                  ? "input-success"
-                  : "input-error"
-                : ""
-            }`}
-            type="email"
-            required
-            placeholder="mail@site.com"
-            value={userData.email}
-            onChange={handleEmailInput}
-            onBlur={() => handleBlur("email")}
-          />
-          <div>
+          <form
+            onKeyDown={handleKeyDown}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+          >
             <input
-              type="password"
-              className={`input ${
-                touched.password
-                  ? isPasswordValid
+              className={`input mb-2 ${
+                touched.email
+                  ? isEmailValid
                     ? "input-success"
                     : "input-error"
                   : ""
               }`}
+              type="email"
               required
-              placeholder="Password"
-              minLength="6"
-              pattern="^.{6,}$"
-              title="Must be at least 6 characters"
-              value={userData.password}
-              onChange={handlePasswordInput}
-              onBlur={() => handleBlur("password")}
+              placeholder="mail@site.com"
+              value={userData.email}
+              onChange={handleEmailInput}
+              onBlur={() => handleBlur("email")}
             />
-            <p className="invisible">Must be at least 6 characters</p>
-            {message && <p className="text-error">{message}</p>}
-          </div>
-          <div className="card-actions justify-end">
-            <button
-              onClick={handleLogin}
-              className="btn btn-primary"
-              disabled={!isFormValid}
-            >
-              Log-in
-            </button>
-          </div>
+            <div>
+              <input
+                type="password"
+                className={`input ${
+                  touched.password
+                    ? isPasswordValid
+                      ? "input-success"
+                      : "input-error"
+                    : ""
+                }`}
+                required
+                placeholder="Password"
+                minLength="6"
+                pattern="^.{6,}$"
+                title="Must be at least 6 characters"
+                value={userData.password}
+                onChange={handlePasswordInput}
+                onBlur={() => handleBlur("password")}
+              />
+              <p className="invisible">Must be at least 6 characters</p>
+              {message && <p className="text-error">{message}</p>}
+            </div>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary" disabled={!isFormValid}>
+                Log-in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

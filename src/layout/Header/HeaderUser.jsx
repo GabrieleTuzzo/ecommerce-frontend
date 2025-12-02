@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../store/user/userSlice";
 import { decodeToken } from "../../util/decodeToken";
 
@@ -9,8 +9,10 @@ export default function HeaderUser() {
   const isLoggedIn = Boolean(token);
   const decoded = token ? decodeToken(token) : null;
   const role = decoded?.role;
+  const navigate = useNavigate();
   const handleLogOut = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   return (

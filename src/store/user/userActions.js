@@ -130,14 +130,23 @@ export const checkToken = (token, callback) => async (dispatch) => {
       dispatch(logout());
     }
   } catch (error) {
-    if (error.code === 401) dispatch(logout());
-    dispatch(
-      setError({
-        name: error.name,
-        status: error.status,
-        code: error.code,
-        message: error.message,
-      })
-    );
+    if (error.status === 401) {
+      dispatch(
+        setError({
+          name: "Session Expired!",
+          message: "User has been logged out",
+        })
+      );
+      dispatch(logout());
+    } else {
+      dispatch(
+        setError({
+          name: error.name,
+          status: error.status,
+          code: error.code,
+          message: error.message,
+        })
+      );
+    }
   }
 };
