@@ -11,11 +11,11 @@ export default function Cart() {
   return (
     <div className="grid grid-cols-3 gap-4">
       <div className="col-span-2">
-        <div>
+        <div className="flex justify-between">
           <h1 className="text-3xl font-bold mb-5">My Cart</h1>
           <button
             onClick={() => dispatch(clearCart())}
-            className="btn btn-primary"
+            className="btn btn-secondary"
           >
             Empty Cart
           </button>

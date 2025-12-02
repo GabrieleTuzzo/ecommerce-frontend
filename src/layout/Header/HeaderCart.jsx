@@ -75,7 +75,9 @@ export default function HeaderCart() {
               </div>
             </>
           ) : (
-            <p>The Cart is empty!</p>
+            <p>
+              Your Cart is <span className="font-bold">empty</span>!
+            </p>
           )}
         </div>
       </div>
