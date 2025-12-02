@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function Carousel({ products }) {
   const navigate = useNavigate();
   return (
-    <div className="carousel carousel-center bg-base-100 rounded-box h-80 gap-4">
+    <div className="carousel bg-base-100 rounded-box h-80 gap-4">
       {products?.map((p, i) => (
         <div
           key={i}
