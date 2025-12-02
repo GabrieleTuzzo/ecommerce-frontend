@@ -18,6 +18,7 @@ import Cart from "./pages/Cart.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
+import Profile from "./pages/Profile.jsx";
 
 async function authMiddleware({ next }) {
   const token = localStorage.getItem("token");
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <h1>Profile</h1>,
+            element: <Profile />,
           },
           {
             path: "payment-success",
