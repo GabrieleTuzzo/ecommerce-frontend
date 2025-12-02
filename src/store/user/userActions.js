@@ -50,6 +50,27 @@ export const fetchUserData = () => async (dispatch, getState) => {
   }
 };
 
+export const fetchFilteredProducts = (query) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/products/search`, {
+      params: {
+        q: query,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  }
+};
+
 export const userOrders = () => async (dispatch, getState) => {
   const token = getState().user.token;
   try {
