@@ -137,7 +137,7 @@ export const confirmOrder =
     }
   };
 
-export const checkToken = (token, callback) => async (dispatch) => {
+export const checkToken = (token, navigate, callback) => async (dispatch) => {
   console.log("Checking token...");
   try {
     const response = await axios.get(`${BACKEND_URL}/users/verify-token`, {
@@ -170,5 +170,6 @@ export const checkToken = (token, callback) => async (dispatch) => {
         })
       );
     }
+    navigate("/");
   }
 };

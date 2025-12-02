@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loginStorage } from "./store/user/userSlice.js";
@@ -12,13 +12,14 @@ function App() {
   const isErrorVisible = useSelector((state) => state.errorHandler.isVisible);
   const isLoading = useSelector((state) => state.loader.isLoading);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       (async () => {
         await dispatch(
-          checkToken(token, () => {
+          checkToken(token, navigate, () => {
             dispatch(loginStorage(token));
           })
         );
