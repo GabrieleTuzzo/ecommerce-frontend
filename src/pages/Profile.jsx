@@ -20,23 +20,49 @@ export default function Profile() {
   }, []);
 
   const cleanedData = cleanData(userData);
-  console.log(userData);
+  //   console.log(userData);
 
   return (
     <>
-      <section>
-        <h1 className="text-lg font-bold">
-          Welcome,{" "}
-          {capitalizeFirstLetter(
-            `${userData?.first_name} ${userData?.last_name}`
-          )}
-        </h1>
-        <div>
+      <section className="bg-base-200 rounded-box p-4">
+        <div className="flex justify-between items-center mb-5">
+          <h1 className="text-lg font-bold">
+            Welcome,{" "}
+            {capitalizeFirstLetter(
+              `${userData?.first_name} ${userData?.last_name}`
+            )}
+          </h1>
+          <button className="btn btn-square btn-primary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="flex flex-col gap-2">
           {cleanedData &&
             Object.entries(cleanedData)?.map(([key, value], i) => (
-              <p className="" key={i}>
-                {capitalizeFirstLetter(key)}: {value?.toString()}
-              </p>
+              <div className="flex justify-between bg-base-100 p-2 rounded-box items-center">
+                <p className="" key={i}>
+                  {capitalizeFirstLetter(key)}:
+                </p>
+                <input
+                  disabled
+                  className="input"
+                  type="text"
+                  defaultValue={value?.toString()}
+                />
+              </div>
             ))}
         </div>
       </section>
