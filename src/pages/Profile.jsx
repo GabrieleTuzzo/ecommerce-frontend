@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
-import { fetchUserData } from "../store/user/userActions";
+import { fetchUserData, userOrders } from "../store/user/userActions";
 import { useDispatch } from "react-redux";
 import { capitalizeFirstLetter } from "../util/capitalizeFirstLetter";
+import Order from "../components/Order";
+
 export default function Profile() {
   const [userData, setUserData] = useState({});
+  const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       const responseData = await dispatch(fetchUserData());
+      const responseOrders = await dispatch(userOrders());
       setUserData(responseData);
+      setOrders(responseOrders);
     }
 
     fetchData();
 
     return () => {
       setUserData({});
+      setOrders([]);
     };
   }, []);
 
   const cleanedData = cleanData(userData);
-  //   console.log(userData);
 
   return (
     <>
@@ -70,8 +75,13 @@ export default function Profile() {
         </div>
       </section>
       <section>
-        <h1 className="text-lg font-bold">Your Orders</h1>
-        <div>Order list will be displayed here</div>
+        <div className="bg-base-200 rounded-box p-4">
+          <h1 className="text-lg font-bold mb-5">Your Orders</h1>
+          <div className="flex gap-2 flex-col overflow-x-auto h-80">
+            {orders &&
+              orders.map((order, i) => <Order key={i} order={order} />)}
+          </div>
+        </div>
       </section>
     </>
   );

@@ -16,7 +16,7 @@ export default function Error() {
       className="hover:cursor-pointer fixed bottom-5 right-5 bg-error text-error-content rounded-lg p-4"
     >
       <h1 className="text-lg font-bold">
-        {error.name} {error.status}: {error.code}
+        {error.name} {error.status} {error.code}
       </h1>
       <p>{error.message}</p>
     </div>

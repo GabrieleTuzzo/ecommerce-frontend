@@ -50,6 +50,26 @@ export const fetchUserData = () => async (dispatch, getState) => {
   }
 };
 
+export const userOrders = () => async (dispatch, getState) => {
+  const token = getState().user.token;
+  try {
+    const response = await axios.get(`${BACKEND_URL}/orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  }
+};
+
 export const postOrder = (userData) => async (dispatch, getState) => {
   const token = getState().user.token;
   try {
