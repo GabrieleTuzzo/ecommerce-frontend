@@ -28,6 +28,28 @@ export const postLogin = (userData, navigate) => async (dispatch) => {
   }
 };
 
+export const fetchUserData = () => async (dispatch, getState) => {
+  const token = getState().user.token;
+  try {
+    const response = await axios.get(`${BACKEND_URL}/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    dispatch(
+      setError({
+        name: error.name,
+        status: error.status,
+        code: error.code,
+        message: error.message,
+      })
+    );
+  }
+};
+
 export const postOrder = (userData) => async (dispatch, getState) => {
   const token = getState().user.token;
   try {
@@ -87,7 +109,7 @@ export const payOrder = (order_id) => async (dispatch, getState) => {
 };
 
 export const confirmOrder =
-  (token, session_id, order_id) => async (dispatch, getState) => {
+  (token, session_id, order_id) => async (dispatch) => {
     console.log("Confirming order...");
     try {
       const response = await axios.post(
