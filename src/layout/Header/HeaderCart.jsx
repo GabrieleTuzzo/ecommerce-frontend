@@ -46,27 +46,37 @@ export default function HeaderCart() {
         tabIndex={0}
         className="card dropdown-content bg-base-100 z-1 mt-3 min-w-max shadow"
       >
-        <div className="card-body">
-          <div className="overflow-x-auto">
-            {cartArray.map((item, i) => (
-              <CartCard key={i} {...item} />
-            ))}
-          </div>
-          <span className="text-info">Subtotal: {cartTotal.toFixed(2)}€</span>
-          <div className="card-actions flex-row align-center justify-between">
-            <button
-              onClick={() => navigate("cart")}
-              className="btn btn-primary btn-block"
-            >
-              View cart
-            </button>
-            <button
-              className="btn btn-secondary btn-block"
-              onClick={handleEmptyCart}
-            >
-              Empty cart
-            </button>
-          </div>
+        <div className="card-body p-3">
+          {cartArray.length !== 0 ? (
+            <>
+              <div className="overflow-x-auto">
+                {cartArray.map((item, i) => (
+                  <CartCard key={i} {...item} />
+                ))}
+              </div>
+              <div>
+                <span className="text-info">
+                  Subtotal: {cartTotal.toFixed(2)}€
+                </span>
+                <div className="card-actions flex-row align-center justify-between">
+                  <button
+                    onClick={() => navigate("cart")}
+                    className="btn btn-primary btn-md"
+                  >
+                    View cart
+                  </button>
+                  <button
+                    className="btn btn-secondary btn-md"
+                    onClick={handleEmptyCart}
+                  >
+                    Empty cart
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <p>The Cart is empty!</p>
+          )}
         </div>
       </div>
     </div>

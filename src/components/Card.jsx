@@ -17,8 +17,8 @@ export default function Card({ detail, ...product }) {
       onClick={() => !detail && navigateDetail()}
       role="button"
       className={`card ${
-        !detail ? `hover:cursor-pointer` : `card-side`
-      } xl:card-xl lg:card-lg md:card-md sm:card-sm bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300`}
+        !detail && `hover:cursor-pointer`
+      } card-sm card-side max-h-60 bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300`}
     >
       <figure>
         <img
@@ -27,17 +27,18 @@ export default function Card({ detail, ...product }) {
           alt={product.name}
         />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">
-          {product.name}
-          {product.featured && (
-            <span className="badge badge-secondary">New!</span>
-          )}
-        </h2>
+      <div className="card-body relative">
+        {product.featured && (
+          <span className="badge badge-secondary badge-sm absolute top-0.5 right-1">
+            New!
+          </span>
+        )}
+        <h2 className="card-title ">{product.name}</h2>
+
         <p>{product.description}</p>
         <div className="card-actions justify-end items-center">
-          <span className="font-bold text-2xl">{product.price}€</span>
-          <button className="btn btn-primary" onClick={handleAddItem}>
+          <span className="font-bold text-xl">{product.price}€</span>
+          <button className="btn btn-primary btn-sm" onClick={handleAddItem}>
             Add to Cart
           </button>
         </div>
