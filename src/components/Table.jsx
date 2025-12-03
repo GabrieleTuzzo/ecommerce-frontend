@@ -4,8 +4,9 @@ export default function Table({
   initialFields = null,
   itemsArray = [],
   refs = null,
-  handleDelete,
+  handleDelete = null,
   handleSendItem = null,
+  actions = true,
 }) {
   const headers = useMemo(
     () =>
@@ -32,7 +33,7 @@ export default function Table({
                 {h}
               </th>
             ))}
-            <th>Actions</th>
+            {actions && <th>Actions</th>}
           </tr>
         </thead>
 
@@ -89,15 +90,17 @@ export default function Table({
                     : ""}
                 </td>
               ))}
-              <td className="gap-1 flex">
-                <button className="btn btn-sm btn-primary">Edit</button>
-                <button
-                  onClick={() => handleDelete(item?.id ?? i)}
-                  className="btn btn-sm btn-secondary"
-                >
-                  Delete
-                </button>
-              </td>
+              {actions && (
+                <td className="gap-1 flex">
+                  <button className="btn btn-sm btn-primary">Edit</button>
+                  <button
+                    onClick={() => handleDelete(item?.id ?? i)}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    Delete
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

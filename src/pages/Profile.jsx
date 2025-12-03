@@ -3,6 +3,7 @@ import { fetchUserData, userOrders } from "../store/user/userActions";
 import { useDispatch } from "react-redux";
 import { capitalizeFirstLetter } from "../util/capitalizeFirstLetter";
 import Order from "../components/Order";
+import Table from "../components/Table";
 
 export default function Profile() {
   const [userData, setUserData] = useState({});
@@ -78,8 +79,7 @@ export default function Profile() {
         <div className="bg-base-200 rounded-box p-4">
           <h1 className="text-lg font-bold mb-5">Your Orders</h1>
           <div className="flex gap-2 flex-col overflow-x-auto h-80">
-            {orders &&
-              orders.map((order, i) => <Order key={i} order={order} />)}
+            {orders && <Table itemsArray={orders} actions={false} />}
           </div>
         </div>
       </section>
