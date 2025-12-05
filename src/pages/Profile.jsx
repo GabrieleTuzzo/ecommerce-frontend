@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { capitalizeFirstLetter } from "../util/capitalizeFirstLetter";
 import Order from "../components/Order";
 import Table from "../components/Table";
+import { formatDate } from "../util/formatDate";
 
 export default function Profile() {
   const [userData, setUserData] = useState({});
@@ -60,10 +61,11 @@ export default function Profile() {
           <div className="flex flex-col gap-2">
             {cleanedData &&
               Object.entries(cleanedData)?.map(([key, value], i) => (
-                <div className="flex justify-between bg-base-100 p-2 rounded-box items-center">
-                  <p className="me-5" key={i}>
-                    {capitalizeFirstLetter(key)}:
-                  </p>
+                <div
+                  key={i}
+                  className="flex justify-between bg-base-100 p-2 rounded-box items-center"
+                >
+                  <p className="me-5">{capitalizeFirstLetter(key)}:</p>
                   <input
                     disabled
                     className="input"
@@ -79,7 +81,9 @@ export default function Profile() {
         <div className="bg-base-200 rounded-box p-4">
           <h1 className="text-lg font-bold mb-5">Your Orders</h1>
           <div className="flex gap-2 flex-col overflow-x-auto h-80">
-            {orders && <Table itemsArray={orders} actions={false} />}
+            {orders && (
+              <Table itemsArray={formatOrders(orders)} actions={false} />
+            )}
           </div>
         </div>
       </section>
@@ -113,3 +117,29 @@ function cleanData(data) {
     "Postal Code": postal_code,
   };
 }
+
+const formatOrders = (orders) => {
+  return orders.map((order) => {
+    const formattedOrder = {};
+
+    Object.keys(order).forEach((key) => {
+      const newKey = key
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+
+      let value = order[key];
+
+      if (key === "total") {
+        value = `${parseFloat(value).toFixed(2)}€`;
+      }
+
+      if (key === "created_at") {
+        value = formatDate(value);
+      }
+
+      formattedOrder[newKey] = value;
+    });
+
+    return formattedOrder;
+  });
+};

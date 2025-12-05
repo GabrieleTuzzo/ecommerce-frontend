@@ -28,8 +28,8 @@ export const postLogin = (userData, navigate) => async (dispatch) => {
   }
 };
 
-export const fetchUserData = () => async (dispatch, getState) => {
-  const token = getState().user.token;
+export const fetchUserData = () => async (dispatch) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${BACKEND_URL}/users/me`, {
       headers: {

@@ -17,12 +17,12 @@ export default function Card({ detail, ...product }) {
       onClick={() => !detail && navigateDetail()}
       role="button"
       className={`card ${
-        !detail && `hover:cursor-pointer`
-      } card-sm card-side max-h-60 bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300`}
+        !detail ? `hover:cursor-pointer max-h-60` : `max-h-100`
+      } card-sm card-side bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300`}
     >
       <figure>
         <img
-          className="w-full h-full object-cover"
+          className={`${detail ? `h-100` : `h-full`} w-full object-cover`}
           src={product.image_url ?? "https://placehold.co/800x800"}
           alt={product.name}
         />
